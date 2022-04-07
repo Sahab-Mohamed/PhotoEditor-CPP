@@ -1,4 +1,8 @@
 #include <iostream>
+#include <fstream>
+#include <cstring>
+#include <cmath>
+#include "bmplib.cpp"
 using namespace std;
 int main() {
     int choice;
