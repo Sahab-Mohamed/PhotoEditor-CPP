@@ -2,12 +2,21 @@
 #include <fstream>
 #include <cstring>
 #include <cmath>
-#include "bmplib.cpp"
+//#include "bmplib.cpp"
 using namespace std;
+/*void loadImage () {
+   char imageFileName[100];
+   cout << "Enter the source image file name: ";
+   cin >> imageFileName;
+   strcat (imageFileName, ".bmp");
+   readGSBMP(imageFileName, image);}*/
+
 int main() {
     int choice;
-    cout<< "hello user, "
-    << "what filter would you like to do?\n"
+    cout<< "hello user, ";
+    cout << " please enter name of image to process"<<endl;
+    // loadImage();
+  cout  << "what filter would you like to do?\n"
     << "1. Black &white filter " << endl
     <<"2. invert filter" << endl
     << "3. merge filter"<< endl
@@ -75,3 +84,11 @@ int main() {
             }
         }
 }
+/*void loadImage () {
+   char imageFileName[100];
+   cout << "Enter the source image file name: ";
+   cin >> imageFileName;
+   strcat (imageFileName, ".bmp");
+   readGSBMP(imageFileName, image);
+}
+*/
