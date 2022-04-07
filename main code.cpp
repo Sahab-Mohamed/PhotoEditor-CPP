@@ -1,3 +1,11 @@
+// fci - programming 1 - 2022 - assigment 3
+//program name : photoshop.cpp
+// author 1 : Rana ayman barakat alsakka id : 20210511
+//author 2 : sahab mohammed abd el rahman id : 20210518
+// author 3 : mohanad hesham id : 20210414
+// teaching assistant : s5 - s6
+
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -5,12 +13,18 @@
 #include "cmake-build-debug/bmplib.cpp"
 using namespace std;
 unsigned char image[SIZE][SIZE];
+unsigned char image2[SIZE][SIZE];
 void rotate_image_90();
 void rotate_image_180();
 void rotate_image_270();
 void loadImage ();
+void loadImage2 ();
 void saveImage ();
 void bW_filter ();
+void flip_image_h();
+void flip_image_v();
+void invert_image();
+void merge_function();
 int main() {
     int choice;
     cout<< "hello user, ";
@@ -34,25 +48,40 @@ int main() {
 
     else if (choice == 2){
         //-------------------- invert filter----------
+        loadImage();
+        invert_image();
+        saveImage();
+        return 0;
 
     }
     else if (choice == 3 ){
         //------------------- merge filter-----------
-
+        loadImage();
+        loadImage2();
+        merge_function();
+        saveImage();
         cout << "please enter name of image file to merge with: " ;
 
     }
     else if (choice == 4){
         int flip_choice;
-        // ----------------flipp image--------
+        // ----------------flip image--------
         cout << " 1. flip horizontaly or 2. vertically";
         cin >> flip_choice;
         cin.ignore();
         if (flip_choice== 1){
             // ---------------flip horizontaly
+            loadImage();
+            flip_image_h();
+            saveImage();
+            return 0;
         }
         else if (flip_choice == 2){
             // ------------flip vertically
+            loadImage();
+            flip_image_v();
+            saveImage();
+            return 0;
 
         }
     }
@@ -109,7 +138,13 @@ int main() {
    strcat (imageFileName, ".bmp");
    readGSBMP(imageFileName, image);
 }
-
+void loadImage2 () {
+    char image2FileName[100];
+    cout << "Enter the source image file name: ";
+    cin >> image2FileName;
+    strcat(image2FileName, ".bmp");
+    readGSBMP(image2FileName, image2);
+}
  void bW_filter () {
     long avg = 0;
     for (int i = 0; i < SIZE; i++) {
@@ -174,6 +209,35 @@ void rotate_image_270() {
             swap(image[i][j], image[j][SIZE - 1 - j]);
         }
     }
+
+
+
+        }
+void flip_image_h(){
+    for (int i = 0; i<  SIZE/2 ; i++){
+        for (int y = 0; y < SIZE ; y++ )
+            swap(image[i][y], image[SIZE - i - 1][SIZE - y - 1]);
+    }
+
+}
+void flip_image_v () {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            image[i][j] = image[i][500-j];
+    }
+}
+void invert_image(){
+
+    for(int i = 0; i<SIZE; i++)
+        for(int j = 0; j<SIZE; j++)
+            image[i][j] = 255 - image [i][j];
+
+
+}
+void merge_function() {
+    for (int i = 0; i<SIZE; i++)
+        for(int j = 0; j<SIZE; j++)
+        image [i][j]= (image[i][j]+ image2[i][j])/2;
 
 
 
