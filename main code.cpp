@@ -5,7 +5,6 @@
 #include "bmplib.cpp"
 using namespace std;
 unsigned char image[SIZE][SIZE];
-int j;
 
 void loadImage ();
 void saveImage ();
