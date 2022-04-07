@@ -44,7 +44,7 @@ int main() {
     }
     else if (choice == 4){
         int flip_choice;
-        // ----------------flip image--------
+        // ----------------flipp image--------
         cout << " 1. flip horizontaly or 2. vertically";
         cin >> flip_choice;
         cin.ignore();
