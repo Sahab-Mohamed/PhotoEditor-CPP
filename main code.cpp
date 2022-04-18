@@ -283,5 +283,19 @@ void mirror_half_image(){
 void detect_edges(){
 
 }
+void shrink_image(){
 
+}
+void enlarge_image(){
+
+}
+void save_to_file (){
+
+}
+void shuffle_image () {
+
+}
+void blur_image (){
+
+}
 
