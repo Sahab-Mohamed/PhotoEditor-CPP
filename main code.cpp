@@ -133,13 +133,13 @@ int main() {
             return 0;
         }
     }
-    /*else if (choice == "7") {
+    else if (choice == "7") {
         //-------------------- detect image edges----------
         loadImage();
         detect_edges();
         saveImage();
         return 0;
-        */
+    }
         /* } else if (choice == "8") {
              //-------------------- enlarge image----------
              loadImage();
