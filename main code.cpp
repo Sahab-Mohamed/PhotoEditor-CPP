@@ -25,7 +25,6 @@ void flip_image_h();
 void flip_image_v();
 void invert_image();
 void merge_function();
-void mirror_half_image();
 void detect_edges();
 void shrink_image();
 void enlarge_image ();
@@ -34,6 +33,10 @@ void blur_image ();
 void lighten_image();
 void darken_image();
 void save_to_file ();
+void mirror_half_image1();
+void mirror_half_image2();
+void mirror_half_image3();
+void mirror_half_image4();
 int main() {
     string choice;
     cout << "hello user, ";
@@ -53,7 +56,7 @@ int main() {
          << "s. save image to a file" << endl;
     cin >> choice;
     cin.ignore();
-    if (choice == "1" ){
+    if (choice == "1") {
         //----------------- black and white filter--------------
         loadImage();
         bW_filter();
@@ -140,39 +143,64 @@ int main() {
             saveImage();
             return 0;
         }
-    }
-    else if (choice == "7") {
+    } else if (choice == "7") {
         //-------------------- detect image edges----------
         loadImage();
         detect_edges();
         saveImage();
         return 0;
     }
-        /* } else if (choice == "8") {
-             //-------------------- enlarge image----------
-             loadImage();
-             enlarge_image();
-             saveImage();
-             return 0;
-         }*/
-        /* else if (choice == "9") {
-            //-------------------- shrink image----------
-            loadImage();
-            shrink_image();
-            saveImage();
-            return 0;
 
-        }
-        */
-
-    else if (choice == "a") {
-        //-------------------- mirror 1/2 image----------
+    else if (choice == "8") {
+//-------------------- enlarge image----------
         loadImage();
-        mirror_half_image();
+        enlarge_image();
         saveImage();
         return 0;
     }
+/* else if (choice == "9") {
+    //-------------------- shrink image----------
+    loadImage();
+    shrink_image();
+    saveImage();
+    return 0;
+
 }
+*/
+
+    else if (choice == "a") {
+//-------------------- mirror 1/2 image----------
+        int mirror_choice;
+        cout << " choose \n 1. 1/2 left\n 2. 1/2 right\n 3 .1/2 upper\n 4. 1/2 lower" << endl;
+        cin >> mirror_choice;
+        cin.ignore();
+        if (mirror_choice == 1) {
+            // ---------------mirror 1/2 image left
+            loadImage();
+            mirror_half_image1();
+            saveImage();
+            return 0;
+        } else if (mirror_choice == 2) {
+            // ------------mirror 1/2 image right
+            loadImage();
+            mirror_half_image2();
+            saveImage();
+            return 0;
+        } else if (mirror_choice == 3) {
+            // ------------mirror 1/2 image up
+            loadImage();
+            mirror_half_image3();
+            saveImage();
+            return 0;
+        }
+        else if (mirror_choice == 4) {
+            // ------------mirror 1/2 image down
+            loadImage();
+            mirror_half_image4();
+            saveImage();
+            return 0;
+        }
+    }}
 void loadImage () {
     char imageFileName[100];
     cout << "Enter the source image file name: ";
@@ -281,14 +309,34 @@ void merge_function() {
         for (int j = 0; j < SIZE; j++)
             image[i][j] = (image[i][j] + image2[i][j]) / 2;
 }
-void mirror_half_image(){
+void mirror_half_image1() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
             image[i][j] = image[i][255 - j];
     }
+}
+
+void mirror_half_image2(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            image[i][j] = image[j][i+j-255];
+    }
 
 }
-void detect_edges(){
+void mirror_half_image3(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            image[i][j] = image[j][i];
+    }
+
+}
+void mirror_half_image4(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            image[i][j] = (image[i][255-j])+255;
+    }
+}
+void detect_edges() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j]>300)
@@ -302,6 +350,7 @@ void shrink_image(){
 
 }
 void enlarge_image(){
+
 
 }
 void save_to_file (){
