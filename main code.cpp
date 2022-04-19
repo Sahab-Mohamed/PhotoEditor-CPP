@@ -41,14 +41,14 @@ int main() {
          << "3. merge filter" << endl
          << "4. flip image" << endl
          << "5. darken and lighten image" << endl
-         << "6.rotate image" << endl
-         << "7 . detect image edges" << endl
+         << "6. rotate image" << endl
+         << "7. detect image edges" << endl
          << "8. enlarge image" << endl
-         << " 9. shrink image " << endl
-         << " a. mirror 1/2 image" << endl
-         << " b. shuffle image " << endl
-         << " c . blur image" << endl
-         << "s . save image to a file" << endl;
+         << "9. shrink image " << endl
+         << "a. mirror 1/2 image" << endl
+         << "b. shuffle image " << endl
+         << "c. blur image" << endl
+         << "s. save image to a file" << endl;
     cin >> choice;
     cin.ignore();
     if (choice == "1" ){
@@ -281,7 +281,14 @@ void mirror_half_image(){
 
 }
 void detect_edges(){
-
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (image[i][j]>300)
+                image[i][j]= 255;
+            else
+                image [i][j] =((image [i][j]-70)+((image[i][j]/3)));
+        }
+    }
 }
 void shrink_image(){
 
