@@ -31,6 +31,8 @@ void shrink_image();
 void enlarge_image ();
 void shuffle_image();
 void blur_image ();
+void lighten_image();
+void darken_image();
 void save_to_file ();
 int main() {
     string choice;
@@ -101,8 +103,14 @@ int main() {
         cin.ignore();
         if (light_choice == 1) {
             // ---------lighten
+            loadImage();
+            lighten_image();
+            saveImage();
         } else if (light_choice == 2) {
             // -----------darken
+            loadImage();
+            darken_image();
+            saveImage();
 
         }
     } else if (choice == "6") {
@@ -305,4 +313,22 @@ void shuffle_image () {
 void blur_image (){
 
 }
+void lighten_image() {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (image[i][j] <= 127) {
+                image[i][j] = image[i][j] + 70;
+            } else if (image[i][j] <= 255) {
+                image[i][j] = (image[i][j]);
+            }
+        }
+    }
+}
+void darken_image(){
 
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image[i][j] = image[i][j] / 2;
+        }
+    }
+}
