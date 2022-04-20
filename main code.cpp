@@ -27,7 +27,10 @@ void invert_image();
 void merge_function();
 void detect_edges();
 void shrink_image();
-void enlarge_image ();
+void enlarge_image1();
+void enlarge_image2();
+void enlarge_image3();
+void enlarge_image4();
 void shuffle_image();
 void blur_image ();
 void lighten_image();
@@ -152,10 +155,35 @@ int main() {
         return 0;
     } else if (choice == "8") {
 //-------------------- enlarge image----------
-        loadImage();
-        enlarge_image();
-        saveImage();
-        return 0;
+        int enlarge_choice;
+        cout<< " which quarter to enlarge? \n 1 , 2 , 3 , 4 \n";
+        cin>> enlarge_choice;
+        cin.ignore();
+        if (enlarge_choice== 1) {
+            loadImage();
+            enlarge_image1();
+            saveImage();
+            return 0;
+        }
+        else if (enlarge_choice == 2){
+            loadImage();
+            enlarge_image2();
+            saveImage();
+            return 0;
+        }
+        else if ( enlarge_choice ==3 ){
+            loadImage();
+            enlarge_image3();
+            saveImage();
+            return 0;
+        }
+        else if (enlarge_choice ==4){
+            loadImage();
+            enlarge_image4();
+            saveImage();
+            return 0;
+        }
+        else {cout << "please enter number from 1 to 4";}
     }
 /* else if (choice == "9") {
     //-------------------- shrink image----------
@@ -354,10 +382,69 @@ void detect_edges() {
 void shrink_image(){
 
 }
-void enlarge_image(){
+void enlarge_image1(){
+    unsigned char temp[256][256];
+    for(int i=0 ,k=0 ; i<256/2 ; i++ , k+=2)
+    {
+        for(int j=0,n=0;j<256/2 ; j++ ,n+=2)
+        {temp[k][n]=image[i][j];
+            temp[k+1][n]=image[i][j];
+            temp[k][n+1]=image[i][j];
+            temp[k+1][n+1]=image[i][j];
 
-
+        }  }
 }
+
+
+void enlarge_image2 (){
+    unsigned char temp[256][256];
+
+    for(int i=0 ,k=0 ; i<256/2 ; i++ , k+=2)
+    {
+        for(int j=256/2,n=0;j<256 ; j++ ,n+=2)
+        {
+            temp[k][n]=image[i][j];
+            temp[k+1][n]=image[i][j];
+            temp[k][n+1]=image[i][j];
+            temp[k+1][n+1]=image[i][j];
+        }
+    }
+}
+
+void enlarge_image3(){
+    unsigned char temp[256][256];
+    for(int i=256/2 ,k=0 ; i<256 ; i++ , k+=2)
+    {
+        for(int j=0,n=0;j<256/2 ; j++ ,n+=2)
+        {
+            temp[k][n]=image[i][j];
+            temp[k+1][n]=image[i][j];
+            temp[k][n+1]=image[i][j];
+            temp[k+1][n+1]=image[i][j];
+        }
+    }
+}
+void enlarge_image4(){
+    unsigned char temp[256][256];
+
+    for(int i=256/2 ,k=0 ; i<256 ; i++ , k+=2)
+    {
+        for(int j=256/2,n=0;j<256 ; j++ ,n+=2)
+        {
+            temp[k][n]=image[i][j];
+            temp[k+1][n]=image[i][j];
+            temp[k][n+1]=image[i][j];
+            temp[k+1][n+1]=image[i][j];
+        }
+    }
+
+    for(int i=0 ; i<256 ; i++){
+        for(int j=0 ; j<256 ; j++){
+            image[i][j] = temp[i][j];
+        }
+    }
+}
+
 void save_to_file () {
 
 }
@@ -485,12 +572,6 @@ void shuffle() {
             image[i][j] = temp[i][j];
         }
     }
-}
-void shuffle2 () {
-}
-void shuffle3 () {
-}
-void shuffle4(){
 }
 void blur_image (){
     double average;
