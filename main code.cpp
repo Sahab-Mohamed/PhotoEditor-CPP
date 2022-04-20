@@ -33,6 +33,7 @@ void blur_image ();
 void lighten_image();
 void darken_image();
 void save_to_file ();
+void shuffle();
 void mirror_half_image1();
 void mirror_half_image2();
 void mirror_half_image3();
@@ -149,9 +150,7 @@ int main() {
         detect_edges();
         saveImage();
         return 0;
-    }
-
-    else if (choice == "8") {
+    } else if (choice == "8") {
 //-------------------- enlarge image----------
         loadImage();
         enlarge_image();
@@ -192,37 +191,48 @@ int main() {
             mirror_half_image3();
             saveImage();
             return 0;
-        }
-        else if (mirror_choice == 4) {
+        } else if (mirror_choice == 4) {
             // ------------mirror 1/2 image down
             loadImage();
             mirror_half_image4();
             saveImage();
             return 0;
         }
-    }}
-void loadImage () {
+    } else if (choice == "b") {
+        loadImage();
+        shuffle();
+        saveImage();
+
+    } else if (choice == "c") {
+        loadImage();
+        blur_image();
+        saveImage();
+
+    }
+}
+
+void loadImage() {
     char imageFileName[100];
     cout << "Enter the source image file name: ";
     cin >> imageFileName;
-    strcat (imageFileName, ".bmp");
+    strcat(imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
-void loadImage2 () {
+void loadImage2() {
     char image2FileName[100];
     cout << "Enter the source image file name: ";
     cin >> image2FileName;
     strcat(image2FileName, ".bmp");
     readGSBMP(image2FileName, image2);
 }
-void bW_filter () {
+void bW_filter() {
     long avg = 0;
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             avg += image[i][j];
         }
     }
-    avg /= (SIZE*SIZE);
+    avg /= (SIZE * SIZE);
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j] > avg)
@@ -250,8 +260,6 @@ void rotate_image_90() {
             image[j][i] = temp;
         }
     }
-
-
     for (int i = 0; i < SIZE; i++) {
 
         for (int j = 0; j < SIZE / 2; j++) {
@@ -279,9 +287,6 @@ void rotate_image_270() {
             swap(image[i][j], image[j][SIZE - 1 - j]);
         }
     }
-
-
-
 }
 void flip_image_h(){
     for (int i = 0; i<  SIZE/2 ; i++){
@@ -337,12 +342,12 @@ void mirror_half_image4(){
     }
 }
 void detect_edges() {
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if (image[i][j]>300)
-                image[i][j]= 255;
+    for (int i = 0; i < 255; i++) {
+        for (int j = 0; j < 255; j++) {
+            if (abs(image[i][j]-image[i][j+2]>25))
+            {image[i][j]=0;}
             else
-                image [i][j] =((image [i][j]-70)+((image[i][j]/3)));
+                image [i][j] =255;
         }
     }
 }
@@ -353,14 +358,151 @@ void enlarge_image(){
 
 
 }
-void save_to_file (){
+void save_to_file () {
 
 }
-void shuffle_image () {
 
+void shuffle() {
+    loop:
+    int x1, x2, x3, x4;
+    cout << "Enter the order of the shuffle that you want" << endl;
+    cin >> x1 >> x2 >> x3 >> x4;
+    unsigned char temp[256][256];
+    if (x1 == 1) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j] = image[i][j];
+            }
+        }
+    } else if (x1 == 2) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j] = image[i][j + 128];
+            }
+        }
+    } else if (x1 == 3) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j] = image[i + 128][j];
+            }
+        }
+    } else if (x1 == 4) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j] = image[i + 128][j + 128];
+            }
+        }
+    } else {
+        cout << "please try again another numbers" << endl;
+        goto loop;
+    }
+    if (x2 == 1) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j + 128] = image[i][j];
+            }
+        }
+    } else if (x2 == 2) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j + 128] = image[i][j + 128];
+            }
+        }
+    } else if (x2 == 3) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][j + 128] = image[i + 128][j];
+            }
+        }
+    } else if (x2 == 4) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i][128] = image[i + 128][j + 128];
+            }
+        }
+    } else {
+        cout << "please try again another numbers" << endl;
+        goto loop;
+    }
+    if (x3 == 1) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j] = image[i][j];
+            }
+        }
+    } else if (x3 == 2) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j] = image[i][j + 128];
+            }
+        }
+    } else if (x3 == 3) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j] = image[i + 128][j];
+            }
+        }
+    } else if (x3 == 4) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[+128][j] = image[i + 128][j + 128];
+            }
+        }
+    } else {
+        cout << "please try again another numbers" << endl;
+        goto loop;
+    }
+    if (x4 == 1) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j + 128] = image[i][j];
+            }
+        }
+    } else if (x4 == 2) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j + 128] = image[i][j + 128];
+            }
+        }
+    } else if (x4 == 3) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j + 128] = image[i + 128][j];
+            }
+        }
+    } else if (x4 == 4) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++) {
+                temp[i + 128][j + 128] = image[i + 128][j + 128];
+            }
+        }
+    } else {
+        cout << "please try again another numbers" << endl;
+        goto loop;
+    }
+    for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            image[i][j] = temp[i][j];
+        }
+    }
+}
+void shuffle2 () {
+}
+void shuffle3 () {
+}
+void shuffle4(){
 }
 void blur_image (){
+    double average;
 
+    for (int i = 0; i <SIZE; i++) {
+        for (int j = 0; j<SIZE; j++) {
+            int sum = 0;
+            sum = image[i ][j ] + image[i ][j+1] + image[i][j + 2] + image[i+1][j] + image[i+1][j+1] +image[i+1][j +2] + image[i +2][j ] + image[i + 2][j+1] + image[i + 2][j + 2] + image[i + 1][j + 2];
+            average = (sum / 10);
+            image[i][j] = average;
+        }
+    }
 }
 void lighten_image() {
     for (int i = 0; i < SIZE; i++) {
