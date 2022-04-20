@@ -1,7 +1,7 @@
 // fci - programming 1 - 2022 - assigment 3
 //program name : photoshop.cpp
 // author 1 : Rana ayman barakat alsakka id : 20210511
-//author 2 : sahab mohammed abd el rahman id : 20210158
+//author 2 : sahab mohammed abd el rahman id : 20210518
 // author 3 : mohanad hesham id : 20210414
 // teaching assistant : s5 - s6
 
@@ -376,7 +376,7 @@ void mirror_half_image4(){
 void detect_edges() {
     for (int i = 0; i < 255; i++) {
         for (int j = 0; j < 255; j++) {
-            if (abs(image[i][j]-image[i][j+9]>25))
+            if ((image[i][j]-image[i][j+9]>25))
             {image[i][j]=0;}
             else
                 image [i][j] =255;
@@ -386,19 +386,24 @@ void detect_edges() {
 void shrink_image(){
 
 }
-void enlarge_image1(){
+void enlarge_image1() {
     unsigned char temp[256][256];
     for(int i=0 ,k=0 ; i<256/2 ; i++ , k+=2)
     {
         for(int j=0,n=0;j<256/2 ; j++ ,n+=2)
-        {temp[k][n]=image[i][j];
+        {
+            temp[k][n]=image[i][j];
             temp[k+1][n]=image[i][j];
             temp[k][n+1]=image[i][j];
             temp[k+1][n+1]=image[i][j];
-
-        }  }
+        }
+    }
+    for(int i=0 ; i<256 ; i++){
+        for(int j=0 ; j<256 ; j++){
+            image[i][j] = temp[i][j];
+        }
+    }
 }
-
 
 void enlarge_image2 (){
     unsigned char temp[256][256];
@@ -413,7 +418,11 @@ void enlarge_image2 (){
             temp[k+1][n+1]=image[i][j];
         }
     }
-}
+    for(int i=0 ; i<256 ; i++){
+        for(int j=0 ; j<256 ; j++){
+            image[i][j] = temp[i][j];
+        }
+    }}
 
 void enlarge_image3(){
     unsigned char temp[256][256];
@@ -427,13 +436,17 @@ void enlarge_image3(){
             temp[k+1][n+1]=image[i][j];
         }
     }
-}
+    for(int i=0 ; i<256 ; i++){
+        for(int j=0 ; j<256 ; j++){
+            image[i][j] = temp[i][j];
+        }
+    }}
 void enlarge_image4(){
     unsigned char temp[256][256];
 
-    for(int i=256/2 ,k=0 ; i>25 ; i++ , k+=2)
+    for(int i=256/2,k=0;i<256;i++,k+=2)
     {
-        for(int j=256/2,n=0;j>25 ; j++ ,n+=2)
+        for(int j=256/2,n=0;j<256 ; j++ ,n+=2)
         {
             temp[k][n]=image[i][j];
             temp[k+1][n]=image[i][j];
@@ -441,9 +454,8 @@ void enlarge_image4(){
             temp[k+1][n+1]=image[i][j];
         }
     }
-
-    for(int i=0 ; i<256 ; i++){
-        for(int j=0 ; j<256 ; j++){
+    for(int i=0 ; i<=256 ; i++){
+        for(int j=0 ; j<=256 ; j++){
             image[i][j] = temp[i][j];
         }
     }
