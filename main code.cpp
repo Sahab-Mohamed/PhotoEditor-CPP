@@ -376,7 +376,7 @@ void mirror_half_image4(){
 void detect_edges() {
     for (int i = 0; i < 255; i++) {
         for (int j = 0; j < 255; j++) {
-            if (abs(image[i][j]-image[i][j+2]>25))
+            if (abs(image[i][j]-image[i][j+9]>25))
             {image[i][j]=0;}
             else
                 image [i][j] =255;
