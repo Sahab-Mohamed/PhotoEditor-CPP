@@ -356,21 +356,21 @@ void mirror_half_image1() {
 void mirror_half_image2(){
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
-            image[i][j] = image[j][i+j-255];
+            image[i][255 - j] = image [i][j];
     }
 
 }
 void mirror_half_image3(){
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
-            image[i][j] = image[j][i];
+            image[i][j] = image[SIZE-1 / 255-i][j];
     }
 
 }
 void mirror_half_image4(){
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
-            image[i][j] = (image[i][255-j])+255;
+            image[SIZE-1 / 255-i][j] = image[i][j];
     }
 }
 void detect_edges() {
@@ -431,9 +431,9 @@ void enlarge_image3(){
 void enlarge_image4(){
     unsigned char temp[256][256];
 
-    for(int i=256/2 ,k=0 ; i<256 ; i++ , k+=2)
+    for(int i=256/2 ,k=0 ; i>25 ; i++ , k+=2)
     {
-        for(int j=256/2,n=0;j<256 ; j++ ,n+=2)
+        for(int j=256/2,n=0;j>25 ; j++ ,n+=2)
         {
             temp[k][n]=image[i][j];
             temp[k+1][n]=image[i][j];
