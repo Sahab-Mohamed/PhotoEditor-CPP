@@ -235,8 +235,12 @@ int main() {
         loadImage();
         blur_image();
         saveImage();
-
     }
+    else if (choice == "s"){
+        save_to_file();
+        return 0;
+    }
+
 }
 
 void loadImage() {
@@ -445,9 +449,13 @@ void enlarge_image4(){
     }
 }
 
-void save_to_file () {
+void save_to_file () { loadImage();
+    saveImage();
 
 }
+
+
+
 
 void shuffle() {
     loop:
