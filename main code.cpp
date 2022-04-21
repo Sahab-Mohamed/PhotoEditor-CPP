@@ -26,7 +26,6 @@ void flip_image_v();
 void invert_image();
 void merge_function();
 void detect_edges();
-void shrink_image();
 void enlarge_image1();
 void enlarge_image2();
 void enlarge_image3();
@@ -41,6 +40,10 @@ void mirror_half_image1();
 void mirror_half_image2();
 void mirror_half_image3();
 void mirror_half_image4();
+void shrink_image1();
+void shrink_image2();
+void shrink_image3();
+
 int main() {
     string choice;
     cout << "hello user, ";
@@ -383,9 +386,6 @@ void detect_edges() {
         }
     }
 }
-void shrink_image(){
-
-}
 void enlarge_image1() {
     unsigned char temp[256][256];
     for(int i=0 ,k=0 ; i<256/2 ; i++ , k+=2)
@@ -623,4 +623,32 @@ void darken_image(){
             image[i][j] = image[i][j] / 2;
         }
     }
-}
+    void shrink_image1(){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j ++) {
+                new_image[i][j] = 255;
+            }
+        }
+
+        for (int i = 0, k = 0; k < 128; i += 2, k++) {
+            for (int j = 0, z = 0; z < 128; j += 2, z++) {
+                new_image[k][z] = image[i][j];
+                new_image[k + 1][z] = image[i][j];
+                new_image[k][z + 1] = image[i][j];
+                new_image[k + 1][z + 1] = image[i][j];
+            }
+    }
+    void shrink_image2(){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j ++) {
+                new_image[i][j] = 255;
+            }
+        }
+    }
+    void shrink_image3(){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j ++) {
+                new_image[i][j] = 255;
+            }
+        }
+    }
