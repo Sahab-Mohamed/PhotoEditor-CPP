@@ -188,15 +188,33 @@ int main() {
         }
         else {cout << "please enter number from 1 to 4";}
     }
-/* else if (choice == "9") {
-    //-------------------- shrink image----------
-    loadImage();
-    shrink_image();
-    saveImage();
-    return 0;
+    else if (choice == "9") {
+        //-------------------- shrink image----------
+        int shrink_choice;
+        cout << "choose shrink to : \n 1) 1/2 \n 2) 1/3 \n 3) 1/4\n";
+        cin>> shrink_choice;
+        //-------------------- shrink 1/2 image
+        if (shrink_choice==1){
+            loadImage();
+            shrink_image1();
+            saveImage();
+            return 0;}
+            //-------------------- shrink 1/3 image
+        else if (shrink_choice==2){
+            loadImage();
+            shrink_image2();
+            saveImage();
+            return 0;
+        }
+            //-------------------- shrink 1/4 image
+        else if (shrink_choice== 3){
+            loadImage();
+            shrink_image3();
+            saveImage();
+            return 0;
+        }
+    }
 
-}
-*/
 
     else if (choice == "a") {
 //-------------------- mirror 1/2 image----------
@@ -465,10 +483,6 @@ void save_to_file () { loadImage();
     saveImage();
 
 }
-
-
-
-
 void shuffle() {
     loop:
     int x1, x2, x3, x4;
@@ -616,39 +630,75 @@ void lighten_image() {
         }
     }
 }
-void darken_image(){
+void darken_image() {
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             image[i][j] = image[i][j] / 2;
         }
     }
-    void shrink_image1(){
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j ++) {
-                new_image[i][j] = 255;
-            }
+}
+void shrink_image1() {
+    unsigned char temp[256][256];
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            temp[i][j] = 255;
         }
+    }
+    for (int i = 0, k = 0; k < 128; i += 2, k++) {
+        for (int j = 0, z = 0; z < 128; j += 2, z++) {
+            temp[k][z] = image[i][j];
+            temp[k + 1][z] = image[i][j];
+            temp[k][z + 1] = image[i][j];
+            temp[k + 1][z + 1] = image[i][j];
+        }
+    }
+    for(int i=0 ; i<=SIZE ; i++){
+        for(int j=0 ; j<=SIZE ; j++){
+            image[i][j] = temp[i][j];
+        }
+    }
+}
 
-        for (int i = 0, k = 0; k < 128; i += 2, k++) {
-            for (int j = 0, z = 0; z < 128; j += 2, z++) {
-                new_image[k][z] = image[i][j];
-                new_image[k + 1][z] = image[i][j];
-                new_image[k][z + 1] = image[i][j];
-                new_image[k + 1][z + 1] = image[i][j];
-            }
-    }
-    void shrink_image2(){
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j ++) {
-                new_image[i][j] = 255;
-            }
+void shrink_image3() {
+    unsigned char temp[256][256];
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            temp[i][j] = 255;
         }
     }
-    void shrink_image3(){
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j ++) {
-                new_image[i][j] = 255;
-            }
+    for (int i = 0, k = 0; k < 64; i += 4, k++) {
+        for (int j = 0, z = 0; z < 64; j += 4, z++) {
+            temp[k][z] = image[i][j];
+            temp[k + 1][z] = image[i][j];
+            temp[k][z + 1] = image[i][j];
+            temp[k + 1][z + 1] = image[i][j];
         }
     }
+    for (int i = 0; i <= SIZE; i++) {
+        for (int j = 0; j <= SIZE; j++) {
+            image[i][j] = temp[i][j];
+        }
+    }
+}
+void shrink_image2() {
+    unsigned char temp[256][256];
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            temp[i][j] = 255;
+        }
+    }
+    for (int i = 0, k = 0; k < 86; i += 3, k++) {
+        for (int j = 0, z = 0; z < 86; j += 3, z++) {
+            temp[k][z] = image[i][j];
+            temp[k + 1][z] = image[i][j];
+            temp[k][z + 1] = image[i][j];
+            temp[k + 1][z + 1] = image[i][j];
+        }
+    }
+    for (int i = 0; i <= SIZE; i++) {
+        for (int j = 0; j <= SIZE; j++) {
+            image[i][j] = temp[i][j];
+        }
+    }
+}
