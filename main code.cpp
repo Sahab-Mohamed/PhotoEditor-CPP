@@ -83,7 +83,6 @@ int main() {
         loadImage2();
         merge_function();
         saveImage();
-        cout << "please enter name of image file to merge with: ";
 
     } else if (choice == "4") {
         int flip_choice;
@@ -273,7 +272,7 @@ void loadImage() {
 }
 void loadImage2() {
     char image2FileName[100];
-    cout << "Enter the source image file name: ";
+    cout << "please enter name of image file to merge with: ";
     cin >> image2FileName;
     strcat(image2FileName, ".bmp");
     readGSBMP(image2FileName, image2);
