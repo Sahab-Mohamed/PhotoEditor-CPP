@@ -565,7 +565,7 @@ void shuffle() {
     } else if (x3 == 4) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                temp[+128][j] = image[i + 128][j + 128];
+                temp[i+128][j] = image[i + 128][j + 128];
             }
         }
     } else {
