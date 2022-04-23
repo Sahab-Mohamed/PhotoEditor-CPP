@@ -578,6 +578,7 @@ void shuffle() {
                     temp[i][j + 128][c] = colored[i + 128][j][c];
                 }
             }
+        
         }
     } else if (x2 == 4) {
         for (int i = 0; i <  128; i++) {
