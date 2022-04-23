@@ -32,7 +32,6 @@ void enlarge_image1();
 void enlarge_image2();
 void enlarge_image3();
 void enlarge_image4();
-void shuffle_image();
 void blur_image ();
 void lighten_image();
 void darken_image();
@@ -272,20 +271,19 @@ void loadImage2() {
 
 }
 void bW_filter() {
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j< SIZE; j++)
-        {
-            for(int k=0 ;k<3 ; k++)
-            {
-                if (colored[i][j][k]>=127)
+
+    int avv;
+    for(int i =0;i<SIZE ;i++){
+        for(int j=0;j<SIZE;j++){
+            avv=(colored[i][j][1]+colored[i][j][2]+colored[i][j][3])/3;
+            for(int k =0;k<3;k++){
+                if(avv>=128){
                     colored[i][j][k]=255;
-                else
-                    colored[i][j][k]=0;
+                }else if (avv < 128){
+                    colored[i][j][k] = 0;
+                }
             }
-
         }
-
     }
 }
     void saveImage() {
@@ -372,14 +370,12 @@ void invert_image(){
 
 
 void merge_function() {
-   
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             for (int c = 0; c < 3; c++) {
                 colored[i][j][c] = (colored[i][j][c] + colored2[i][j][c]) / 2;
             }
         }}
-    
     }
 void mirror_half_image1() {
     for (int i = 0; i < SIZE; i++) {
@@ -451,28 +447,29 @@ void enlarge_image1() {
 }}
 
 void enlarge_image2 () {
-    unsigned char temp[256][256][3];
+    unsigned char temp[256][256][RGB];
 
-    for (int i = 0, k = 0; i < 256 / 2; i++, k += 2) {
-        for (int j = 256 / 2, n = 0; j < 256; j++, n += 2) {
-            for (int c = 0; c < 3; c++) {
+    for (int i = 0, k = 0; i < 128; i++, k += 2) {
+        for (int j = 128, n = 0; j < 256; j++, n += 2) {
+            for (int c = 0; c < RGB; c++) {
                 temp[k][n][c] = colored[i][j][c];
                 temp[k + 1][n][c] = colored[i][j][c];
                 temp[k][n + 1][c] = colored[i][j][c];
                 temp[k + 1][n + 1][c] = colored[i][j][c];
             }
         }
-        for (int i = 0; i < 256; i++) {
-            for (int j = 0; j < 256; j++) {
-                for (int c = 0; c < 3; c++) {
-                    colored[i][j][c] = temp[i][j][c];
-                }
+    }
+    for (int i = 0; i <= 256; i++) {
+        for (int j = 0; j <= 256; j++) {
+            for (int c = 0; c < 3; c++) {
+
+                colored[i][j][c] = temp[i][j][c];
             }
         }
     }
 }
 void enlarge_image3(){
-    unsigned char temp[256][256][3];
+    unsigned char temp[256][256][RGB];
     for(int i=256/2 ,k=0 ; i<256 ; i++ , k+=2)
     {
         for(int j=0,n=0;j<256/2 ; j++ ,n+=2)
@@ -491,23 +488,23 @@ void enlarge_image3(){
         }
     }}}
 void enlarge_image4() {
-    unsigned char temp[256][256][3];
+    unsigned char temp[256][256][RGB];
 
-    for (int i = 256 / 2, k = 0; i < 256; i++, k += 2) {
+    for (int i = 128, k = 0; i < 256; i++, k += 2) {
         for (int j = 256 / 2, n = 0; j < 256; j++, n += 2) {
-            for (int c = 0; c < 3; c++) {
+            for (int c = 0; c < RGB; c++) {
                 temp[k][n][c] = colored[i][j][c];
                 temp[k + 1][n][c] = colored[i][j][c];
                 temp[k][n + 1][c] = colored[i][j][c];
                 temp[k + 1][n + 1][c] = colored[i][j][c];
             }
-            for (int i = 0; i <= 256; i++) {
-                for (int j = 0; j <= 256; j++) {
-                    for (int c = 0; c < 3; c++) {
+        }
+    }
+    for (int i = 0; i <= 256; i++) {
+        for (int j = 0; j <= 256; j++) {
+            for (int c = 0; c < 3; c++) {
 
-                        colored[i][j][c] = temp[i][j][c];
-                    }
-                }
+                colored[i][j][c] = temp[i][j][c];
             }
         }
     }
@@ -521,20 +518,19 @@ void shuffle() {
     int x1, x2, x3, x4;
     cout << "Enter the order of the shuffle that you want" << endl;
     cin >> x1 >> x2 >> x3 >> x4;
-    unsigned char temp[256][256][3];
+    unsigned char temp[256][256][RGB];
     if (x1 == 1) {
         for (int i = 0; i < 128; i++) {
-            for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
-
+            for (int j = 0; j <128; j++) {
+                for (int c = 0; c<RGB; c++) {
                     temp[i][j][c] = colored[i][j][c];
                 }
             }
         }
     } else if (x1 == 2) {
-        for (int i = 0; i < 128; i++) {
-            for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+        for (int i = 0; i <128; i++) {
+            for (int j = 0; j <128; j++) {
+                for (int c = 0; c <RGB; c++) {
                     temp[i][j][c] = colored[i][j + 128][c];
                 }
             }
@@ -542,7 +538,7 @@ void shuffle() {
     } else if (x1 == 3) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i][j][c] = colored[i + 128][j][c];
                 }
             }
@@ -550,7 +546,7 @@ void shuffle() {
     } else if (x1 == 4) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i][j][c] = colored[i + 128][j + 128][c];
                 }
             }
@@ -562,7 +558,7 @@ void shuffle() {
     if (x2 == 1) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c <  RGB; c++) {
                     temp[i][j + 128][c] = colored[i][j][c];
                 }
             }
@@ -570,7 +566,7 @@ void shuffle() {
     } else if (x2 == 2) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i][j + 128][c] = colored[i][j + 128][c];
                 }
             }
@@ -578,15 +574,15 @@ void shuffle() {
     } else if (x2 == 3) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i][j + 128][c] = colored[i + 128][j][c];
                 }
             }
         }
     } else if (x2 == 4) {
-        for (int i = 0; i < 128; i++) {
-            for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+        for (int i = 0; i <  128; i++) {
+            for (int j = 0; j <  128; j++) {
+                for (int c = 0; c <  RGB; c++) {
                     temp[i][128][c] = colored[i + 128][j + 128][c];
                 }
             }
@@ -596,9 +592,9 @@ void shuffle() {
         goto loop;
     }
     if (x3 == 1) {
-        for (int i = 0; i < 128; i++) {
-            for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+        for (int i = 0; i<128; i++) {
+            for (int j = 0; j<128; j++) {
+                for (int c = 0; c <= RGB; c++) {
                     temp[i + 128][j][c] = colored[i][j][c];
                 }
             }
@@ -606,7 +602,7 @@ void shuffle() {
     } else if (x3 == 2) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i + 128][j][c] = colored[i][j + 128][c];
                 }
             }
@@ -614,7 +610,7 @@ void shuffle() {
     } else if (x3 == 3) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < RGB; c++) {
                     temp[i + 128][j][c] = colored[i + 128][j][c];
                 }
             }
@@ -622,15 +618,16 @@ void shuffle() {
     } else if (x3 == 4) {
         for (int i = 0; i < 128; i++) {
             for (int j = 0; j < 128; j++) {
-                for (int c = 0; c < 3; c++) {
-                    temp[+128][j][c] = colored[i + 128][j + 128][c];
+                for (int c = 0; c < RGB; c++) {
+                    temp[i + 128][j][c] = colored[i + 128][j + 128][c];
                 }
             }
         }
+    }
         if (x4 == 1) {
             for (int i = 0; i < 128; i++) {
                 for (int j = 0; j < 128; j++) {
-                    for (int c = 0; c < 3; c++) {
+                    for (int c = 0; c < RGB; c++) {
                         temp[i + 128][j + 128][c] = colored[i][j][c];
                     }
                 }
@@ -638,7 +635,7 @@ void shuffle() {
         } else if (x4 == 2) {
             for (int i = 0; i < 128; i++) {
                 for (int j = 0; j < 128; j++) {
-                    for (int c = 0; c < 3; c++) {
+                    for (int c = 0; c < RGB; c++) {
                         temp[i + 128][j + 128][c] = colored[i][j + 128][c];
                     }
                 }
@@ -646,7 +643,7 @@ void shuffle() {
         } else if (x4 == 3) {
             for (int i = 0; i < 128; i++) {
                 for (int j = 0; j < 128; j++) {
-                    for (int c = 0; c < 3; c++) {
+                    for (int c = 0; c < RGB; c++) {
                         temp[i + 128][j + 128][c] = colored[i + 128][j][c];
                     }
                 }
@@ -654,7 +651,7 @@ void shuffle() {
         } else if (x4 == 4) {
             for (int i = 0; i < 128; i++) {
                 for (int j = 0; j < 128; j++) {
-                    for (int c = 0; c <3; c++) {
+                    for (int c = 0; c <RGB; c++) {
                         temp[i + 128][j + 128][c] = colored[i + 128][j + 128][c];
                     }
                 }
@@ -663,14 +660,13 @@ void shuffle() {
             cout << "please try again another numbers" << endl;
             goto loop;
         }
-        for (int i = 0; i < 256; i++) {
-            for (int j = 0; j < 256; j++) {
-                for (int c = 0; c < 3; c++) {
+        for (int i = 0; i <256; i++) {
+            for (int j = 0; j <256; j++) {
+                for (int c = 0; c < RGB; c++) {
                     colored[i][j][c] = temp[i][j][c];
                 }
             }
         }
-    }
 }
 void blur_image (){
     double average;
@@ -687,7 +683,6 @@ void blur_image (){
         }
     }
 }
-}
 
 void lighten_image() {
     for (int i = 0; i < SIZE; i++) {
@@ -702,7 +697,6 @@ void lighten_image() {
         }
     }
 }
-}
 void darken_image() {
 
     for (int i = 0; i < SIZE; i++) {
@@ -713,9 +707,9 @@ void darken_image() {
         }
     }
 }
-}
 
 void shrink_image1() {
+
     unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -739,8 +733,7 @@ void shrink_image1() {
             }
         }
     }}
-}
-void shrink_image3()  {
+void shrink_image3() {
     unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -764,8 +757,8 @@ void shrink_image3()  {
         }
     }
 }}
-}void shrink_image2() {
-  unsigned char temp[256][256][3];
+void shrink_image2() {
+    unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             for (int c = 0; c < 3; c++) {
@@ -788,5 +781,3 @@ void shrink_image3()  {
         }
     }
 }}
-
-}
