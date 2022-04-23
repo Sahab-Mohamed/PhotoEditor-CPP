@@ -57,8 +57,31 @@ double average;
     }
 }
 };
-void lighten_image();
-void darken_image();
+void lighten_image(){
+ for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int c = 0; c < 3; c++) {
+                if (colored[i][j][c]<= 127) {
+                    colored[i][j][c] = colored[i][j][c] + 70;
+                } else if (colored[i][j][c] <= 255) {
+                    colored[i][j][c] = (colored[i][j][c]);
+                }
+            }
+        }
+    }
+}
+};
+void darken_image(){
+for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int c = 0; c < 3; c++) {
+                colored[i][j][c] = colored[i][j][c] / 2;
+            }
+        }
+    }
+}
+
+};
 void save_to_file ();
 void shuffle();
 void mirror_half_image1();
