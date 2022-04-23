@@ -26,144 +26,25 @@ void bW_filter ();
 void flip_image_h();
 void flip_image_v();
 void invert_image();
-void merge_function(){
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-                colored[i][j][c] = (colored[i][j][c] + colored2[i][j][c]) / 2;
-            }
-        }}
-    }
-};
+void merge_function();
 void detect_edges();
 void enlarge_image1();
 void enlarge_image2();
 void enlarge_image3();
 void enlarge_image4();
 void shuffle_image();
-void blur_image (){
-double average;
-
-    for (int i = 0; i <SIZE; i++) {
-        for (int j = 0; j<SIZE; j++) {
-            for (int k =0 ; k <3; k++){
-                int sum = 0;
-                sum = colored[i ][j ][k] + colored[i ][j+1][k] + colored[i][j + 2][k] + colored[i+1][j][k] + colored[i+1][j+1][k] +colored[i+1][j +2][k] + colored[i +2][j ][k] + colored[i + 2][j+1][k] + colored[i + 2][j + 2][k];
-                average = (sum / 9);
-                colored[i][j][k] = average;
-            }
-
-        }
-    }
-}
-};
-void lighten_image(){
- for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-                if (colored[i][j][c]<= 127) {
-                    colored[i][j][c] = colored[i][j][c] + 70;
-                } else if (colored[i][j][c] <= 255) {
-                    colored[i][j][c] = (colored[i][j][c]);
-                }
-            }
-        }
-    }
-}
-};
-void darken_image(){
-for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-                colored[i][j][c] = colored[i][j][c] / 2;
-            }
-        }
-    }
-}
-
-};
+void blur_image ();
+void lighten_image();
+void darken_image();
 void save_to_file ();
 void shuffle();
 void mirror_half_image1();
 void mirror_half_image2();
 void mirror_half_image3();
 void mirror_half_image4();
-void shrink_image1(){
-  unsigned char temp[256][256][3];
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-                temp[i][j][c] = 255;
-            }}
-    }
-    for (int i = 0, k = 0; k < 128; i += 2, k++) {
-        for (int j = 0, z = 0; z < 128; j += 2, z++) {
-            for (int c = 0; c < 3; c++) {
-                temp[k][z][c] = colored[i][j][c];
-                temp[k + 1][z][c] = colored[i][j][c];
-                temp[k][z + 1][c] = colored[i][j][c];
-                temp[k + 1][z + 1] [c]= colored[i][j][c];
-            }}
-    }
-    for (int i = 0; i <= SIZE; i++) {
-        for (int j = 0; j <= SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-                colored[i][j][c] = temp[i][j][c];
-            }
-        }
-    }}
-};
-void shrink_image2(){
-  unsigned char temp[256][256][3];
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-            temp[i][j][c] = 255;
-        }
-    }}
-    for (int i = 0, k = 0; k < 86; i += 3, k++) {
-        for (int j = 0, z = 0; z < 86; j += 3, z++) {
-            for (int c = 0; c < 3; c++) {
-            temp[k][z][c] = colored[i][j][c];
-            temp[k + 1][z][c] = colored[i][j][c];
-            temp[k][z + 1] [c]= colored[i][j][c];
-            temp[k + 1][z + 1][c] = colored[i][j][c];
-        }
-    }}
-    for (int i = 0; i <= SIZE; i++) {
-        for (int j = 0; j <= SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-            colored[i][j][c] = temp[i][j][c];
-        }
-    }
-}}
-
-};
-void shrink_image3() {
-    unsigned char temp[256][256][3];
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-            temp[i][j][c] = 255;
-        }}
-    }
-    for (int i = 0, k = 0; k < 64; i += 4, k++) {
-        for (int j = 0, z = 0; z < 64; j += 4, z++) {
-            for (int c = 0; c < 3; c++) {
-            temp[k][z][c] = colored[i][j][c];
-            temp[k + 1][z][c] = colored[i][j][c];
-            temp[k][z + 1][c] = colored[i][j][c];
-            temp[k + 1][z + 1] [c]= colored[i][j][c];
-        }}
-    }
-    for (int i = 0; i <= SIZE; i++) {
-        for (int j = 0; j <= SIZE; j++) {
-            for (int c = 0; c < 3; c++) {
-            colored[i][j][c] = temp[i][j][c];
-        }
-    }
-}}
-};
+void shrink_image1();
+void shrink_image2();
+void shrink_image3();
 
 int main() {
     string choice;
@@ -491,12 +372,14 @@ void invert_image(){
 
 
 void merge_function() {
+   
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             for (int c = 0; c < 3; c++) {
                 colored[i][j][c] = (colored[i][j][c] + colored2[i][j][c]) / 2;
             }
         }}
+    
     }
 void mirror_half_image1() {
     for (int i = 0; i < SIZE; i++) {
@@ -804,6 +687,7 @@ void blur_image (){
         }
     }
 }
+}
 
 void lighten_image() {
     for (int i = 0; i < SIZE; i++) {
@@ -818,6 +702,7 @@ void lighten_image() {
         }
     }
 }
+}
 void darken_image() {
 
     for (int i = 0; i < SIZE; i++) {
@@ -828,35 +713,34 @@ void darken_image() {
         }
     }
 }
+}
 
 void shrink_image1() {
     unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            for (int c = 0; c < SIZE; c++) {
+            for (int c = 0; c < 3; c++) {
                 temp[i][j][c] = 255;
-            }
-        }
-        for (int i = 0, k = 0; k < 128; i += 2, k++) {
-            for (int j = 0, z = 0; z < 128; j += 2, z++) {
-                for (int c = 0; c < SIZE; c++) {
-                    temp[k][z][c] = colored[i][j][c];
-                    temp[k + 1][z][c] = colored[i][j][c];
-                    temp[k][z + 1][c] = colored[i][j][c];
-                    temp[k + 1][z + 1][c] = colored[i][j][c];
-                }
-            }
-        }
-        for (int i = 0; i <= SIZE; i++) {
-            for (int j = 0; j <= SIZE; j++) {
-                for (int c = 0; c < SIZE; c++) {
-                    colored[i][j][c] = temp[i][j][c];
-                }
-            }
-        }
+            }}
     }
+    for (int i = 0, k = 0; k < 128; i += 2, k++) {
+        for (int j = 0, z = 0; z < 128; j += 2, z++) {
+            for (int c = 0; c < 3; c++) {
+                temp[k][z][c] = colored[i][j][c];
+                temp[k + 1][z][c] = colored[i][j][c];
+                temp[k][z + 1][c] = colored[i][j][c];
+                temp[k + 1][z + 1] [c]= colored[i][j][c];
+            }}
+    }
+    for (int i = 0; i <= SIZE; i++) {
+        for (int j = 0; j <= SIZE; j++) {
+            for (int c = 0; c < 3; c++) {
+                colored[i][j][c] = temp[i][j][c];
+            }
+        }
+    }}
 }
-void shrink_image3() {
+void shrink_image3()  {
     unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -880,8 +764,8 @@ void shrink_image3() {
         }
     }
 }}
-void shrink_image2() {
-    unsigned char temp[256][256][3];
+}void shrink_image2() {
+  unsigned char temp[256][256][3];
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             for (int c = 0; c < 3; c++) {
@@ -904,3 +788,5 @@ void shrink_image2() {
         }
     }
 }}
+
+}
